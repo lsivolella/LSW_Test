@@ -4,9 +4,11 @@ public class PlayerBase : CharacterBase
 {
     // Serialized Variables
     [SerializeField] PlayerSO configSO;
+    [SerializeField] InventorySO inventory;
 
     // General Properties
     public PlayerSO ConfigSO { get { return configSO; } }
+    public InventorySO Inventory { get { return inventory; } }
 
     // Base States
     public IdleAndWalkState IdleAndWalkState { get; private set; }

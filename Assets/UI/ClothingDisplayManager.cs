@@ -11,19 +11,14 @@ public class ClothingDisplayManager : MonoBehaviour
 
     private MainCanvasManager mainCanvasManager;
 
-    public ClothingDisplayManager Setup(MainCanvasManager mainCanvasManager, ClothingManager clothingManager)
+    public void Setup(MainCanvasManager mainCanvasManager)
     {
         this.mainCanvasManager = mainCanvasManager;
-        mainCanvasManager.ClothingSelectionManager.onDisplayNewClothing += UpdateShirt;
-
-        body.sprite = clothingManager.CurrentShirt.Sprite;
-        legs.sprite = clothingManager.CurrentPants.Sprite;
-        feet.sprite = clothingManager.CurrentShoes.Sprite;
-
-        return this;
+        mainCanvasManager.ClothingSelectionManager.onDisplayNewClothing += UpdateClothing;
+        mainCanvasManager.ShoppingSelectionManager.onDisplayNewClothing += UpdateClothing;
     }
 
-    private void UpdateShirt(ClothingSO newClothing)
+    private void UpdateClothing(ClothingSO newClothing)
     {
         switch(newClothing.ItemType)
         {
@@ -37,5 +32,11 @@ public class ClothingDisplayManager : MonoBehaviour
                 feet.sprite = newClothing.Sprite;
                 break;
         }     
+    }
+
+    private void OnApplicationQuit()
+    {
+        mainCanvasManager.ClothingSelectionManager.onDisplayNewClothing -= UpdateClothing;
+        mainCanvasManager.ShoppingSelectionManager.onDisplayNewClothing -= UpdateClothing;
     }
 }

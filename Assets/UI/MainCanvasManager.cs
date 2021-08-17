@@ -16,9 +16,6 @@ public class MainCanvasManager : MonoBehaviour
     private readonly List<GameObject> panels = new List<GameObject>();
 
     private GameManager gameManager;
-    private InventoryManager inventoryManager;
-    private ClothingManager clothingManager;
-    private ClothesSellerInventoryManager clothesSellerInventoryManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -49,10 +46,7 @@ public class MainCanvasManager : MonoBehaviour
         gameManager.onInventoryCall += ManageInventoryPanels;
         gameManager.onShoppingCall += ManageShoppingPanels;
 
-        MainCanvasManagerSetup();
-        ClothingSelectionSetup();
         ClothingDisplaySetup();
-        ShoppingSelectionSetup();
     }
 
     private void ManageInventoryPanels()
@@ -69,26 +63,9 @@ public class MainCanvasManager : MonoBehaviour
         ClothingDisplayManager.gameObject.SetActive(gameManager.ShoppingOpen);
     }
 
-    private void MainCanvasManagerSetup()
-    {
-        inventoryManager = gameManager.Player.GetComponent<InventoryManager>();
-        clothingManager = gameManager.Player.GetComponent<ClothingManager>();
-        clothesSellerInventoryManager = gameManager.ClotherSeller.GetComponent<ClothesSellerInventoryManager>();
-    }
-
-    private void ClothingSelectionSetup()
-    {
-        ClothingSelectionManager.Setup(inventoryManager, clothingManager);
-    }
-
     private void ClothingDisplaySetup()
     {
-        ClothingDisplayManager.Setup(this, clothingManager);
-    }
-
-    private void ShoppingSelectionSetup()
-    {
-        ShoppingSelectionManager.Setup(inventoryManager, clothingManager, clothesSellerInventoryManager);
+        ClothingDisplayManager.Setup(this);
     }
 
     private void OnDisable()

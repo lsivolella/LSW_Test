@@ -16,9 +16,30 @@ public class ClothingManager : MonoBehaviour
     public ClothingSO CurrentPants { get { return currentPants; } }
     public ClothingSO CurrentShoes { get { return currentShoes; } }
 
+    private PlayerBase player;
+    private GameManager gameManager;
+
     private void Awake()
     {
+        GetComponents();
+
+    }
+
+    private void GetComponents()
+    {
+        player = GetComponent<PlayerBase>();
+    }
+
+    private void Start()
+    {
+        SubscribeToEvent();
         ClothingSetup();
+    }
+
+    private void SubscribeToEvent()
+    {
+        gameManager = GameManager.Instance;
+        gameManager.onShoppingCall += CheckForNaked;
     }
 
     private void ClothingSetup()
@@ -35,5 +56,27 @@ public class ClothingManager : MonoBehaviour
         currentShoes = newShoes;
 
         ClothingSetup();
+    }
+
+    public void CheckForNaked()
+    {
+        if (gameManager.ShoppingOpen) return;
+
+        if (!player.Inventory.HasItem(currentShirt))
+            currentShirt = player.Inventory.Container.Find(x => (x.ItemType == currentShirt.ItemType)
+            && (x.DisplayName == "None"));
+        if (!player.Inventory.HasItem(currentPants))
+            currentPants = player.Inventory.Container.Find(x => (x.ItemType == currentPants.ItemType)
+            && (x.DisplayName == "None"));
+        if (!player.Inventory.HasItem(currentShoes))
+            currentShoes = player.Inventory.Container.Find(x => (x.ItemType == currentShoes.ItemType)
+            && (x.DisplayName == "None"));
+
+        ClothingSetup();
+    }
+
+    private void OnApplicationQuit()
+    {
+        gameManager.onShoppingCall -= CheckForNaked;
     }
 }

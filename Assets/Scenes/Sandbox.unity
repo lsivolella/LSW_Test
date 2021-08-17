@@ -522,7 +522,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: clothes_seller_pf
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2192595852018829042, guid: 74d42fbeb037e6743865b9ce2eeab8fd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 74d42fbeb037e6743865b9ce2eeab8fd, type: 3}
 --- !u!1001 &3411348754251511629
 PrefabInstance:
@@ -537,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 67077262894174977, guid: aeddd90518ead564684f0d706a35afa8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 67077262894174977, guid: aeddd90518ead564684f0d706a35afa8, type: 3}
       propertyPath: m_LocalPosition.y
