@@ -8,14 +8,13 @@ public class ClothingManager : MonoBehaviour
     [SerializeField] SpriteRenderer body;
     [SerializeField] SpriteRenderer legs;
     [SerializeField] SpriteRenderer feet;
-    [SerializeField] ShirtSO currentShirt;
+    [SerializeField] ClothingSO currentShirt;
+    [SerializeField] ClothingSO currentPants;
+    [SerializeField] ClothingSO currentShoes;
 
-    public Sprite Head { get { return head.sprite; } }
-    public Sprite Body { get { return body.sprite; } }
-    public Sprite Legs { get { return legs.sprite; } }
-    public Sprite Feet { get { return feet.sprite; } }
-
-    public ShirtSO CurrentShirt { get { return currentShirt; }}
+    public ClothingSO CurrentShirt { get { return currentShirt; } }
+    public ClothingSO CurrentPants { get { return currentPants; } }
+    public ClothingSO CurrentShoes { get { return currentShoes; } }
 
     private void Awake()
     {
@@ -25,5 +24,16 @@ public class ClothingManager : MonoBehaviour
     private void ClothingSetup()
     {
         body.sprite = currentShirt.Sprite;
+        legs.sprite = currentPants.Sprite;
+        feet.sprite = currentShoes.Sprite;
+    }
+
+    public void ChangeClothes(ClothingSO newShirt, ClothingSO newPants, ClothingSO newShoes)
+    {
+        currentShirt = newShirt;
+        currentPants = newPants;
+        currentShoes = newShoes;
+
+        ClothingSetup();
     }
 }
