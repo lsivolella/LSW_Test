@@ -23,13 +23,13 @@ public class ClothingDisplayManager : MonoBehaviour
         switch(newClothing.ItemType)
         {
             case ClothingType.Shirt:
-                body.sprite = newClothing.Sprite;
+                body.sprite = newClothing.FrontSprite;
                 break;
             case ClothingType.Pants:
-                legs.sprite = newClothing.Sprite;
+                legs.sprite = newClothing.FrontSprite;
                 break;
             case ClothingType.Shoes:
-                feet.sprite = newClothing.Sprite;
+                feet.sprite = newClothing.FrontSprite;
                 break;
         }     
     }

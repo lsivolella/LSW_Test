@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8bb280d6f4fd747816341ffd3c0e6b, type: 3}
-  m_Name: red_t_shirt_so
+  m_Name: red_sneakers_shoes_so
   m_EditorClassIdentifier: 
-  displayName: Red T-Shirt
-  frontSprite: {fileID: -2411987845917449340, guid: 220ba3b653da8e24d9905f5a64571de2, type: 3}
-  sideSprite: {fileID: 7230617625518756349, guid: ce05d7b97ba0b41439e0f6df910ab288, type: 3}
-  backSprite: {fileID: 6773809189534348076, guid: f03be4185227000438046cd05a14cbd4, type: 3}
-  itemType: 0
+  displayName: Red Sneakers
+  frontSprite: {fileID: -2015165571007308594, guid: 0ff74155864daac42bb844dda1d6d1de, type: 3}
+  sideSprite: {fileID: 2925646798013254665, guid: a3fdfc1da8390e14b9d0b7261b72fbc1, type: 3}
+  backSprite: {fileID: 5507796237048719137, guid: 78881b3917dcc3f4b8f47553576d7de2, type: 3}
+  itemType: 2
   buyingPrice: 39
   sellingPrice: 5

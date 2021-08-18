@@ -44,9 +44,9 @@ public class ClothingManager : MonoBehaviour
 
     private void ClothingSetup()
     {
-        body.sprite = currentShirt.Sprite;
-        legs.sprite = currentPants.Sprite;
-        feet.sprite = currentShoes.Sprite;
+        body.sprite = currentShirt.FrontSprite;
+        legs.sprite = currentPants.FrontSprite;
+        feet.sprite = currentShoes.FrontSprite;
     }
 
     public void ChangeClothes(ClothingSO newShirt, ClothingSO newPants, ClothingSO newShoes)

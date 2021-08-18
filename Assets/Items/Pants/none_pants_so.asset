@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: none_pants_so
   m_EditorClassIdentifier: 
   displayName: None
-  sprite: {fileID: 21300000, guid: a208ca86cab8f894f8709d6814f7cdf4, type: 3}
+  frontSprite: {fileID: 8929125082840144066, guid: d482def3f0a91b946a28236e5115d092, type: 3}
+  sideSprite: {fileID: -3482827357469918083, guid: 4ea4575ffba848746aafa99c5639df1a, type: 3}
+  backSprite: {fileID: 4532252319517333016, guid: a72c9505fe1529a46a3df23660c61d31, type: 3}
   itemType: 1
   buyingPrice: 0
   sellingPrice: 0
