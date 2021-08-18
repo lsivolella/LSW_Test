@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8bb280d6f4fd747816341ffd3c0e6b, type: 3}
-  m_Name: white_jeans_pants 1
+  m_Name: white_jeans_pants
   m_EditorClassIdentifier: 
   displayName: White Jeans
   frontSprite: {fileID: -7735392944514264027, guid: d482def3f0a91b946a28236e5115d092, type: 3}

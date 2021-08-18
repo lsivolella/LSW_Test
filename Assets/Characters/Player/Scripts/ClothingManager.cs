@@ -33,7 +33,7 @@ public class ClothingManager : MonoBehaviour
     private void Start()
     {
         SubscribeToEvent();
-        ClothingSetup();
+        ClothingFrontSetup();
     }
 
     private void SubscribeToEvent()
@@ -42,11 +42,36 @@ public class ClothingManager : MonoBehaviour
         gameManager.onShoppingCall += CheckForNaked;
     }
 
-    private void ClothingSetup()
+    public void ClothingFrontSetup()
     {
+        player.transform.localScale = new Vector2(1, 1);
         body.sprite = currentShirt.FrontSprite;
         legs.sprite = currentPants.FrontSprite;
         feet.sprite = currentShoes.FrontSprite;
+    }
+
+    public void ClothingBackSetup()
+    {
+        player.transform.localScale = new Vector2(1, 1);
+        body.sprite = currentShirt.BackSprite;
+        legs.sprite = currentPants.BackSprite;
+        feet.sprite = currentShoes.BackSprite;
+    }
+
+    public void ClothingLeftSetup()
+    {
+        player.transform.localScale = new Vector2(1, 1);
+        body.sprite = currentShirt.SideSprite;
+        legs.sprite = currentPants.SideSprite;
+        feet.sprite = currentShoes.SideSprite;
+    }
+
+    public void ClothingRightSetup()
+    {
+        player.transform.localScale = new Vector2(-1, 1);
+        body.sprite = currentShirt.SideSprite;
+        legs.sprite = currentPants.SideSprite;
+        feet.sprite = currentShoes.SideSprite;
     }
 
     public void ChangeClothes(ClothingSO newShirt, ClothingSO newPants, ClothingSO newShoes)
@@ -55,7 +80,7 @@ public class ClothingManager : MonoBehaviour
         currentPants = newPants;
         currentShoes = newShoes;
 
-        ClothingSetup();
+        ClothingFrontSetup();
     }
 
     public void CheckForNaked()
@@ -72,7 +97,7 @@ public class ClothingManager : MonoBehaviour
             currentShoes = player.Inventory.Container.Find(x => (x.ItemType == currentShoes.ItemType)
             && (x.DisplayName == "None"));
 
-        ClothingSetup();
+        ClothingFrontSetup();
     }
 
     private void OnApplicationQuit()

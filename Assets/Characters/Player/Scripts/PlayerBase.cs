@@ -13,15 +13,20 @@ public class PlayerBase : CharacterBase
     public WalletSO Wallet { get { return wallet; } }
 
     // Base States
-    public PlayerIdleState PlayerIdleState { get; private set; }
-    public PlayerWalkState PlayerWalkState { get; private set; }
-    public PlayerConversationState PlayerConversationState { get; private set; }
+    public IdlePlayerState idleState { get; private set; }
+    public WalkPlayerState walkState { get; private set; }
+    public StandbyPlayerState standbyState { get; private set; }
 
     // Reference Properties
     public DialogueCanvas CurrentDialogueCanvas { get; set; }
 
     // Components
-    public Rigidbody2D rb { get; private set; }
+    public ClothingManager ClothingManager { get; private set; }
+    public Rigidbody2D Rigidbody { get; private set; }
+    public Animator Animator { get; private set; }
+
+    // General Variables
+    public Vector2 LastDirection { get; set; }
 
     public void Awake()
     {
@@ -31,18 +36,42 @@ public class PlayerBase : CharacterBase
 
     private void GetComponents()
     {
-        rb = GetComponent<Rigidbody2D>();
+        ClothingManager = GetComponent<ClothingManager>();
+        Rigidbody = GetComponent<Rigidbody2D>();
+        Animator = GetComponentInChildren<Animator>();
     }
 
     protected override void SetCharacterStates()
     {
-        PlayerIdleState = new PlayerIdleState(this);
-        PlayerWalkState = new PlayerWalkState(this);
-        PlayerConversationState = new PlayerConversationState(this);
+        idleState = new IdlePlayerState(this);
+        walkState = new WalkPlayerState(this);
+        standbyState = new StandbyPlayerState(this);
     }
 
     private void Start()
     {
-        TransitionToState(PlayerWalkState);
+        TransitionToState(walkState);
+    }
+
+    public void CastDialogueLinecast()
+    {
+        if (!Input.GetKeyDown(KeyCode.Space)) return;
+
+        Vector2 playerPosition = transform.position;
+        float linecastDistance = 5f;
+        var linecast = Physics2D.Linecast(playerPosition,
+            playerPosition + (LastDirection * linecastDistance), LayerMask.GetMask("NPC"));
+
+        if (linecast.collider == null) return;
+
+        CurrentDialogueCanvas = linecast.collider.GetComponent<ClothesSellerBase>()
+            .DialogueCanvas;
+        CurrentDialogueCanvas.DialogueSetup();
+        TransitionToState(standbyState);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + (LastDirection * 5));
     }
 }
