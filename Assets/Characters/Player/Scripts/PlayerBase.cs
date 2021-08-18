@@ -5,13 +5,20 @@ public class PlayerBase : CharacterBase
     // Serialized Variables
     [SerializeField] PlayerSO configSO;
     [SerializeField] InventorySO inventory;
+    [SerializeField] WalletSO wallet;
 
     // General Properties
     public PlayerSO ConfigSO { get { return configSO; } }
     public InventorySO Inventory { get { return inventory; } }
+    public WalletSO Wallet { get { return wallet; } }
 
     // Base States
-    public IdleAndWalkState IdleAndWalkState { get; private set; }
+    public PlayerIdleState PlayerIdleState { get; private set; }
+    public PlayerWalkState PlayerWalkState { get; private set; }
+    public PlayerConversationState PlayerConversationState { get; private set; }
+
+    // Reference Properties
+    public DialogueCanvas CurrentDialogueCanvas { get; set; }
 
     // Components
     public Rigidbody2D rb { get; private set; }
@@ -29,11 +36,13 @@ public class PlayerBase : CharacterBase
 
     protected override void SetCharacterStates()
     {
-        IdleAndWalkState = new IdleAndWalkState(this);
+        PlayerIdleState = new PlayerIdleState(this);
+        PlayerWalkState = new PlayerWalkState(this);
+        PlayerConversationState = new PlayerConversationState(this);
     }
 
     private void Start()
     {
-        TransitionToState(IdleAndWalkState);
+        TransitionToState(PlayerWalkState);
     }
 }

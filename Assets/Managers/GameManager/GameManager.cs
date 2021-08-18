@@ -4,8 +4,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public DialogueController DialogueController { get; private set; }
     public PlayerBase Player { get; private set; }
-    public ClothesSellerBase ClotherSeller { get; private set; }
+    public ClothesSellerBase ClothesSeller { get; private set; }
 
     public event Action onInventoryCall;
     public event Action onShoppingCall;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
         InventoryOpen = false;
 
         SingletonSetup();
-        FindCharacters();
+        FindObjects();
     }
 
     private void SingletonSetup()
@@ -31,10 +32,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void FindCharacters()
+    private void FindObjects()
     {
+        DialogueController = FindObjectOfType<DialogueController>();
         Player = FindObjectOfType<PlayerBase>();
-        ClotherSeller = FindObjectOfType<ClothesSellerBase>();
+        ClothesSeller = FindObjectOfType<ClothesSellerBase>();
     }
 
     void Update()
@@ -43,6 +45,18 @@ public class GameManager : MonoBehaviour
             OnInventoryCall();
         if (Input.GetKeyDown(KeyCode.P) && !InventoryOpen)
             OnShoppingCall();
+
+        if (ShoppingOpen || InventoryOpen) return;
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !ClothesSeller.DialogueCanvas.CanvasOpened)
+        {
+            DialogueController.BeginDialogue(ClothesSeller.DialogueCanvas, ClothesSeller.gameObject, ClothesSeller.DialogueCanvas.Conversation[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab) && ClothesSeller.DialogueCanvas.CanvasOpened)
+        {
+            DialogueController.DisplayNextSentence();
+        }
     }
 
     private void OnInventoryCall()

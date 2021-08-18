@@ -146,7 +146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3008577777689616285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -214,6 +214,10 @@ PrefabInstance:
     - target: {fileID: 732805267886303936, guid: 3aaee376808b91e41a06c41f2eb271e1, type: 3}
       propertyPath: m_Name
       value: clothing_display_panel_pf
+      objectReference: {fileID: 0}
+    - target: {fileID: 732805267886303936, guid: 3aaee376808b91e41a06c41f2eb271e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 732805267886303937, guid: 3aaee376808b91e41a06c41f2eb271e1, type: 3}
       propertyPath: m_Pivot.x
@@ -412,6 +416,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: clothing_selection_panel_pf
       objectReference: {fileID: 0}
+    - target: {fileID: 5249869230214667047, guid: 95950c1c73ad53846bc9efd8456071ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95950c1c73ad53846bc9efd8456071ca, type: 3}
 --- !u!224 &595630778231860797 stripped
@@ -524,6 +532,10 @@ PrefabInstance:
     - target: {fileID: 8861498497832648485, guid: a2f71a3a72cd8474295f0dec4164a52d, type: 3}
       propertyPath: m_Name
       value: shopping_selection_panel_pf
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861498497832648485, guid: a2f71a3a72cd8474295f0dec4164a52d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2f71a3a72cd8474295f0dec4164a52d, type: 3}

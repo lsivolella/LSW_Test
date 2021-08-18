@@ -298,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configSO: {fileID: 11400000, guid: 11d5317f95eb3054480a144f53d31593, type: 2}
   inventory: {fileID: 11400000, guid: 8c3757cb57a67f84781f19b26a149e62, type: 2}
+  wallet: {fileID: 11400000, guid: 361bba2e4605c9e4b94688a9f577c52d, type: 2}
 --- !u!114 &37627506956130042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +331,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5142101}
+  m_Offset: {x: 0, y: -1.2491822}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -341,7 +342,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.9567082}
+  m_Size: {x: 1, y: 2.486764}
   m_EdgeRadius: 0
 --- !u!50 &1209043666927753189
 Rigidbody2D:
@@ -363,7 +364,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8147226156898671733
 GameObject:
   m_ObjectHideFlags: 0

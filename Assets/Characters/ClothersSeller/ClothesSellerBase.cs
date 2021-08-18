@@ -7,15 +7,22 @@ public class ClothesSellerBase : CharacterBase
 
     // General Properties
     public InventorySO Inventory { get { return inventory; } }
+    public DialogueCanvas DialogueCanvas { get; private set; }
 
+    // Cached States
     private IdleNpcState idleNpcState;
+
+    protected override void OnAwake()
+    {
+        DialogueCanvas = GetComponentInChildren<DialogueCanvas>();
+    }
 
     protected override void SetCharacterStates()
     {
         idleNpcState = new IdleNpcState(this);
     }
 
-    private void Start()
+    protected override void OnStart()
     {
         TransitionToState(idleNpcState);
     }

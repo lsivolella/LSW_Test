@@ -29,7 +29,7 @@ public class ShoppingSelectionManager : ClothingSelectionManager
         gameManager = GameManager.Instance;
         gameManager.onShoppingCall += GetCurrentClothing;
         player = gameManager.Player;
-        clothesSeller = gameManager.ClotherSeller;
+        clothesSeller = gameManager.ClothesSeller;
         GetButtonsComponents();
     }
 
@@ -148,12 +148,15 @@ public class ShoppingSelectionManager : ClothingSelectionManager
 
     public void BuyShirt()
     {
+        if (!player.Wallet.RemoveFromWallet(currentShirt.BuyingPrice)) return;
+
         player.Inventory.AddItem(currentShirt);
         ButtonSetup(currentShirt);
     }
 
     public void SellShirt()
     {
+        player.Wallet.AddToWallet(currentShirt.SellingPrice);
         player.Inventory.RemoveItem(currentShirt);
         ButtonSetup(currentShirt);
     }
