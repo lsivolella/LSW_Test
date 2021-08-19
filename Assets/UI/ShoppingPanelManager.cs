@@ -13,7 +13,7 @@ public class ShoppingPanelManager : InventoryPanelManager
     [SerializeField] Button buyShoesButton;
     [SerializeField] Button sellShoesButton;
 
-    private ClothesSellerBase clothesSeller;
+    private ShopkeeperBase shopkeeper;
 
     private TextMeshProUGUI buyShirtButtonText;
     private TextMeshProUGUI sellShirtButtonText;
@@ -28,7 +28,7 @@ public class ShoppingPanelManager : InventoryPanelManager
     {
         gameManager = GameManager.Instance;
         player = gameManager.Player;
-        clothesSeller = gameManager.ClothesSeller;
+        shopkeeper = gameManager.Shopkeeper;
         this.mainCanvasManager = mainCanvasManager;
         mainCanvasManager.onShoppingCall += GetCurrentClothing;
         GetButtonsComponents();
@@ -36,11 +36,11 @@ public class ShoppingPanelManager : InventoryPanelManager
 
     protected override void GetCurrentClothing()
     {
-        UpdateCurrentShirt(clothesSeller.Inventory.Container.Find(x => x.ItemType == ClothingType.Shirt));
+        UpdateCurrentShirt(shopkeeper.Inventory.Container.Find(x => x.ItemType == ClothingType.Shirt));
         OnDisplayNewClothing(currentShirt);
-        UpdateCurrentPants(clothesSeller.Inventory.Container.Find(x => x.ItemType == ClothingType.Pants));
+        UpdateCurrentPants(shopkeeper.Inventory.Container.Find(x => x.ItemType == ClothingType.Pants));
         OnDisplayNewClothing(currentPants);
-        UpdateCurrentShoes(clothesSeller.Inventory.Container.Find(x => x.ItemType == ClothingType.Shoes));
+        UpdateCurrentShoes(shopkeeper.Inventory.Container.Find(x => x.ItemType == ClothingType.Shoes));
         OnDisplayNewClothing(currentShoes);
     }
 
@@ -115,8 +115,8 @@ public class ShoppingPanelManager : InventoryPanelManager
 
     protected override void GetItem(ClothingSO currentClothing, int nextIndex)
     {
-        int lastIndex = clothesSeller.Inventory.Container.Count - 1;
-        int currentIndex = clothesSeller.Inventory.Container.FindIndex(x => x.Equals(currentClothing));
+        int lastIndex = shopkeeper.Inventory.Container.Count - 1;
+        int currentIndex = shopkeeper.Inventory.Container.FindIndex(x => x.Equals(currentClothing));
         if (nextIndex > 0)
         {
             if (currentIndex == lastIndex)
@@ -125,9 +125,9 @@ public class ShoppingPanelManager : InventoryPanelManager
                 currentIndex++;
             for (int i = currentIndex; i <= lastIndex; i++)
             {
-                if (clothesSeller.Inventory.Container[i].ItemType == currentClothing.ItemType)
+                if (shopkeeper.Inventory.Container[i].ItemType == currentClothing.ItemType)
                 {
-                    UpdateCurrentItem(clothesSeller.Inventory.Container[i]);
+                    UpdateCurrentItem(shopkeeper.Inventory.Container[i]);
                     break;
                 }
                 if (i == lastIndex)
@@ -142,9 +142,9 @@ public class ShoppingPanelManager : InventoryPanelManager
                 currentIndex--;
             for (int i = currentIndex; i >= 0; i--)
             {
-                if (clothesSeller.Inventory.Container[i].ItemType == currentClothing.ItemType)
+                if (shopkeeper.Inventory.Container[i].ItemType == currentClothing.ItemType)
                 {
-                    UpdateCurrentItem(clothesSeller.Inventory.Container[i]);
+                    UpdateCurrentItem(shopkeeper.Inventory.Container[i]);
                     break;
                 }
                 if (i == 0)

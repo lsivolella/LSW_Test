@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System.Text;
 using System.Collections;
 
@@ -49,10 +48,7 @@ public class DialogueController : MonoBehaviour
             yield return new WaitForSeconds(letterPrintingDelay);
         }
 
-        if (sentences.Count > 0)
-            currentCanvas.EnableNextButton();
-        if (sentences.Count == 0)
-            currentCanvas.EnableOptionsButtons();
+        currentCanvas.ButtonsSetup(sentences.Count);
     }
     public void EndDialogue()
     {

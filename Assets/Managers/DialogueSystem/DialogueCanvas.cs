@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class DialogueCanvas : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class DialogueCanvas : MonoBehaviour
     public TextMeshProUGUI BodyText { get { return bodyText; } }
     public DialogueSO[] Dialogue { get { return dialogue; } }
     public Animator Animator { get; private set; }
+    public int CurrentDialogueIndex { get; private set; } = 0;
 
     private GameManager gameManager;
     private DialogueController dialogueController;
 
-    private string defaultNextText;
     public bool DialogueActive { get; private set; }
+
+    public event Action<int> onDialogueEnd; 
 
     private void Awake()
     {
@@ -31,16 +34,16 @@ public class DialogueCanvas : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         dialogueController = gameManager.DialogueController;
-        gameObject.SetActive(false);
         DialogueActive = false;
     }
 
-    public void DialogueSetup()
+    public void CanvasSetup()
     {
         DialogueActive = true;
         OpenDialogueCanvas();
         DisableNextButton();
-        DisableOptionsButtons();
+        DisableShopButton();
+        DisableExitButton();
     }
 
     public void GetNextDialogueSentence()
@@ -56,7 +59,7 @@ public class DialogueCanvas : MonoBehaviour
         bodyText.text = "";
         Animator.Play("open");
         float animationDelay = Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        dialogueController.BeginDialogue(this, dialogue[0], animationDelay);
+        dialogueController.BeginDialogue(this, dialogue[CurrentDialogueIndex], animationDelay);
     }
 
     public void CloseDialogueCanvas()
@@ -64,10 +67,43 @@ public class DialogueCanvas : MonoBehaviour
         headerText.text = "";
         bodyText.text = "";
         Animator.Play("close");
-        Invoke(nameof(ControlClosing), Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        Invoke(nameof(HideCanvas), Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        OnDialogueEnd(CurrentDialogueIndex);
+        UpdateDialogueIndex();
     }
 
-    private void ControlClosing()
+    public void OnDialogueEnd(int currentDialogueIndex)
+    {
+        if (onDialogueEnd == null) return;
+
+        onDialogueEnd(currentDialogueIndex);
+    }
+
+    private void UpdateDialogueIndex()
+    {
+        if (CurrentDialogueIndex == Dialogue.Length - 1) return;
+
+        CurrentDialogueIndex++;
+    }
+
+    public void ButtonsSetup(int remainingSentences)
+    {
+        if (remainingSentences > 0)
+            EnableNextButton();
+        else if (remainingSentences == 0)
+        {
+            if (CurrentDialogueIndex == 0
+                || CurrentDialogueIndex == 1)
+                EnableExitButton();
+            else
+            {
+                EnableShopButton();
+                EnableExitButton();
+            }
+        }
+    }
+
+    public void HideCanvas()
     {
         gameObject.SetActive(false);
     }
@@ -82,21 +118,31 @@ public class DialogueCanvas : MonoBehaviour
         nextButton.SetActive(false);
     }
 
-    public void EnableOptionsButtons()
+    public void EnableShopButton()
     {
         shopButton.SetActive(true);
+    }
+
+    public void DisableShopButton()
+    {
+        shopButton.SetActive(false);
+    }
+
+    public void EnableExitButton()
+    {
+        
         exitButton.SetActive(true);
     }
 
-    public void DisableOptionsButtons()
+    public void DisableExitButton()
     {
-        shopButton.SetActive(false);
         exitButton.SetActive(false);
     }
 
     public void ActionButton()
     {
         gameManager.MainCanvasManager.OnShoppingCall();
+        CloseDialogue();
     }
 
     public void CloseDialogue()
