@@ -45,18 +45,6 @@ public class GameManager : MonoBehaviour
             OnInventoryCall();
         if (Input.GetKeyDown(KeyCode.P) && !InventoryOpen)
             OnShoppingCall();
-
-        if (ShoppingOpen || InventoryOpen) return;
-
-        if (Input.GetKeyDown(KeyCode.Tab) && !ClothesSeller.DialogueCanvas.CanvasOpened)
-        {
-            DialogueController.BeginDialogue(ClothesSeller.DialogueCanvas, ClothesSeller.gameObject, ClothesSeller.DialogueCanvas.Conversation[0]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab) && ClothesSeller.DialogueCanvas.CanvasOpened)
-        {
-            DialogueController.DisplayNextSentence();
-        }
     }
 
     private void OnInventoryCall()
@@ -67,7 +55,7 @@ public class GameManager : MonoBehaviour
         onInventoryCall();
     }
 
-    private void OnShoppingCall()
+    public void OnShoppingCall()
     {
         if (onShoppingCall == null) return;
 

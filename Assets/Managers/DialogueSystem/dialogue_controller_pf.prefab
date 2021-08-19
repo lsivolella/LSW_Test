@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dcdbc120dd798449ab8cd1a5914d231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  letterPrintingSpeed: 0.05
+  letterPrintingDelay: 0.03

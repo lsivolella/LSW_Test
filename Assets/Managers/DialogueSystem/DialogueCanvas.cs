@@ -1,26 +1,27 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogueCanvas : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI headerText;
     [SerializeField] TextMeshProUGUI bodyText;
     [SerializeField] TextMeshProUGUI nextText;
-    [SerializeField] DialogueSequence[] conversation;
+    [SerializeField] GameObject nextButton;
+    [SerializeField] GameObject shopButton;
+    [SerializeField] GameObject exitButton;
+    [SerializeField] DialogueSO[] dialogue;
 
     public TextMeshProUGUI HeaderText { get { return headerText; } }
     public TextMeshProUGUI BodyText { get { return bodyText; } }
-    public DialogueSequence[] Conversation { get { return conversation; } }
+    public DialogueSO[] Dialogue { get { return dialogue; } }
     public Animator Animator { get; private set; }
 
     private GameManager gameManager;
     private DialogueController dialogueController;
 
-    private bool canvasOpened = false;
-    private bool canvasClosed = true;
     private string defaultNextText;
-
-    public bool CanvasOpened { get { return canvasOpened; } }
+    public bool DialogueActive { get; private set; }
 
     private void Awake()
     {
@@ -34,16 +35,21 @@ public class DialogueCanvas : MonoBehaviour
         gameManager = GameManager.Instance;
         dialogueController = gameManager.DialogueController;
         gameObject.SetActive(false);
+        DialogueActive = false;
     }
 
     public void DialogueSetup()
     {
-        dialogueController.BeginDialogue(this, this.gameObject, conversation[0]);
+        DialogueActive = true;
+        OpenDialogueCanvas();
+        DisableNextButton();
+        DisableOptionsButtons();
     }
 
-    public bool GetNextDialogueSentence()
+    public void GetNextDialogueSentence()
     {
-        return dialogueController.DisplayNextSentence();
+        DisableNextButton();
+        dialogueController.DisplayNextSentence();
     }
 
     public void OpenDialogueCanvas()
@@ -52,15 +58,13 @@ public class DialogueCanvas : MonoBehaviour
         headerText.text = "";
         bodyText.text = "";
         nextText.text = "";
-        canvasOpened = false;
-        canvasClosed = false;
         Animator.Play("open");
-        Invoke(nameof(ControlOpening), Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        float animationDelay = Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        dialogueController.BeginDialogue(this, dialogue[0], animationDelay);
     }
 
     private void ControlOpening()
     {
-        canvasOpened = true;
         nextText.text = defaultNextText;
     }
 
@@ -75,8 +79,40 @@ public class DialogueCanvas : MonoBehaviour
 
     private void ControlClosing()
     {
-        canvasOpened = false;
-        canvasClosed = true;
         gameObject.SetActive(false);
+    }
+
+    public void EnableNextButton()
+    {
+        nextButton.SetActive(true);
+    }
+
+    public void DisableNextButton()
+    {
+        nextButton.SetActive(false);
+    }
+
+    public void EnableOptionsButtons()
+    {
+        shopButton.SetActive(true);
+        exitButton.SetActive(true);
+    }
+
+    public void DisableOptionsButtons()
+    {
+        shopButton.SetActive(false);
+        exitButton.SetActive(false);
+    }
+
+    public void ActionButton()
+    {
+        gameManager.OnShoppingCall();
+    }
+
+    public void CloseDialogue()
+    {
+        DialogueActive = false;
+        dialogueController.EndDialogue();
+        CloseDialogueCanvas();
     }
 }

@@ -8,4 +8,9 @@ public class IdleNpcState : BaseCharacterState
     {
         this.clotherSeller = clotherSeller;
     }
+
+    public void GiftPlayer()
+    {
+        //TODO: sort a piece of each clothing and add it to player inventory.
+    }
 }

@@ -25,14 +25,12 @@ public class StandbyPlayerState : BaseCharacterState
 
     public override void Update()
     {
-        GetNextDialogueSentence();
+        FinishDialogue();
     }
 
-    private void GetNextDialogueSentence()
+    private void FinishDialogue()
     {
-        if (!Input.GetKeyDown(KeyCode.Space)) return;
-
-        if (player.CurrentDialogueCanvas.GetNextDialogueSentence()) return;
+        if (player.CurrentDialogueCanvas.DialogueActive) return;
         
         player.CurrentDialogueCanvas = null;
         player.TransitionToState(player.idleState);
