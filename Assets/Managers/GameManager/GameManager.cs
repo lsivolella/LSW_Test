@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public MainCanvasManager MainCanvasManager { get; private set; }
     public DialogueController DialogueController { get; private set; }
     public PlayerBase Player { get; private set; }
-    public ClothesSellerBase ClothesSeller { get; private set; }
+    public ShopkeeperBase Shopkeeper { get; private set; }
 
 
     public void Awake()
@@ -31,6 +31,6 @@ public class GameManager : MonoBehaviour
         MainCanvasManager = FindObjectOfType<MainCanvasManager>();
         DialogueController = FindObjectOfType<DialogueController>();
         Player = FindObjectOfType<PlayerBase>();
-        ClothesSeller = FindObjectOfType<ClothesSellerBase>();
+        Shopkeeper = FindObjectOfType<ShopkeeperBase>();
     }
 }

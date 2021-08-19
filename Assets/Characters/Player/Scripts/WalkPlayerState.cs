@@ -15,7 +15,7 @@ public class WalkPlayerState : BaseCharacterState
     {
         GetMovementInputs();
         PlayAnimator();
-        player.CastDialogueLinecast();
+        //  player.CastDialogueLinecast();
     }
 
     private void GetMovementInputs()

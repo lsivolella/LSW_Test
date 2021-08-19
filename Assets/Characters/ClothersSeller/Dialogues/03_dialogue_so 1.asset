@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fc8d1786057c7641baa307a9859b196, type: 3}
-  m_Name: intro_dialogue_so
+  m_Name: 03_dialogue_so 1
   m_EditorClassIdentifier: 
-  conversationTitle: Intro
+  conversationTitle: Third Dialogue
   nameToDisplay: Augustus
   sentences:
-  - Hello there! Oh my, you have no clothes on!
-  - I am a clothes seller. Bussiness is not good, but I suppose I can help you with
-    some old pieces.
-  - Here, takes this. Open you inventory by clicking on the right upper corner button
-    and try them on.
+  - How did it go, any luck?

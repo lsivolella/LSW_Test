@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class IdleNpcState : BaseCharacterState
 {
-    private ClothesSellerBase clotherSeller;
+    private ShopkeeperBase clotherSeller;
 
-    public IdleNpcState(ClothesSellerBase clotherSeller)
+    public IdleNpcState(ShopkeeperBase clotherSeller)
     {
         this.clotherSeller = clotherSeller;
-    }
-
-    public void GiftPlayer()
-    {
-        //TODO: sort a piece of each clothing and add it to player inventory.
     }
 }

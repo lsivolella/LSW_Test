@@ -25,7 +25,7 @@ public class IdlePlayerState : BaseCharacterState
 
     public override void Update()
     {
-        player.CastDialogueLinecast();
+        //player.CastDialogueLinecast();
         GetMovementInputs();
     }
 

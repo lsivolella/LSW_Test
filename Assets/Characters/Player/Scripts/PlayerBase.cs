@@ -53,25 +53,9 @@ public class PlayerBase : CharacterBase
         TransitionToState(walkState);
     }
 
-    public void CastDialogueLinecast()
+    public void BeginDialogue(DialogueCanvas currentCanvas)
     {
-        if (!Input.GetKeyDown(KeyCode.Space)) return;
-
-        Vector2 playerPosition = transform.position;
-        float linecastDistance = 5f;
-        var linecast = Physics2D.Linecast(playerPosition,
-            playerPosition + (LastDirection * linecastDistance), LayerMask.GetMask("NPC"));
-
-        if (linecast.collider == null) return;
-
-        CurrentDialogueCanvas = linecast.collider.GetComponent<ClothesSellerBase>()
-            .DialogueCanvas;
-        CurrentDialogueCanvas.DialogueSetup();
+        CurrentDialogueCanvas = currentCanvas;
         TransitionToState(standbyState);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + (LastDirection * 5));
     }
 }

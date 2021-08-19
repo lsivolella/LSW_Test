@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc8d1786057c7641baa307a9859b196, type: 3}
+  m_Name: 02_dialogue_so
+  m_EditorClassIdentifier: 
+  conversationTitle: Second Dialogue
+  nameToDisplay: Augustus
+  sentences:
+  - So, how do you like them? Pretty good uh?
+  - You don't seem to have any money to buy my products, that's too unfortunate!
+  - Maybe you should try to find some lost change on the streets. People often drop
+    it or throw it away without noticing...
+  - You will know when you find some change. Just click with your mouse where you
+    think it is and you will be rewarded.

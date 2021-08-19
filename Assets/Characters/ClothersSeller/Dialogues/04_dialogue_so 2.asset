@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4bcba72a64a6b4d82f78d0bf20c011, type: 3}
-  m_Name: player_wallet_so
+  m_Script: {fileID: 11500000, guid: 4fc8d1786057c7641baa307a9859b196, type: 3}
+  m_Name: 04_dialogue_so 2
   m_EditorClassIdentifier: 
-  balance: 1000
+  conversationTitle: Final Dialogue
+  nameToDisplay: Augustus
+  sentences:
+  - Hey there, how is your day going?
