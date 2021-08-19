@@ -3,12 +3,13 @@ using TMPro;
 using UnityEngine;
 using static ClothingSO;
 
-public class ClothingSelectionManager : MonoBehaviour
+public class InventoryPanelManager : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI currentShirtText;
     [SerializeField] protected TextMeshProUGUI currentPantsText;
     [SerializeField] protected TextMeshProUGUI currentShoesText;
 
+    protected MainCanvasManager mainCanvasManager;
     protected GameManager gameManager;
     protected PlayerBase player;
     protected ClothingManager clothingManager;
@@ -19,18 +20,13 @@ public class ClothingSelectionManager : MonoBehaviour
 
     public event Action<ClothingSO> onDisplayNewClothing;
 
-    private void Start()
-    {
-        Setup();
-        GetCurrentClothing();
-    }
-
-    public virtual void Setup()
+    public virtual void Setup(MainCanvasManager mainCanvasManager)
     {
         gameManager = GameManager.Instance;
-        gameManager.onInventoryCall += GetCurrentClothing;
         player = gameManager.Player;
         this.clothingManager = player.GetComponent<ClothingManager>();
+        this.mainCanvasManager = mainCanvasManager;
+        mainCanvasManager.onInventoryCall += GetCurrentClothing;
     }
 
     protected virtual void GetCurrentClothing()
@@ -142,13 +138,18 @@ public class ClothingSelectionManager : MonoBehaviour
         onDisplayNewClothing(newClothe);
     }
 
-    private void OnApplicationQuit()
-    {
-        gameManager.onInventoryCall -= GetCurrentClothing;
-    }
-
     public void UpdateClothing()
     {
         clothingManager.ChangeClothes(currentShirt, currentPants, currentShoes);
+    }
+
+    public virtual void ExitPanel()
+    {
+        mainCanvasManager.OnInventoryCall();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        mainCanvasManager.onInventoryCall -= GetCurrentClothing;
     }
 }

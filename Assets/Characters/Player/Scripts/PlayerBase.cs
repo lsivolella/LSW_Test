@@ -26,7 +26,7 @@ public class PlayerBase : CharacterBase
     public Animator Animator { get; private set; }
 
     // General Variables
-    public Vector2 LastDirection { get; set; }
+    public Vector2 LastDirection { get; set; } = Vector2.down;
 
     public void Awake()
     {

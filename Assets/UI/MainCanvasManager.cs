@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,73 +6,95 @@ using UnityEngine.UI;
 public class MainCanvasManager : MonoBehaviour
 {
     [SerializeField] Image background;
-    [SerializeField] ClothingDisplayManager clothingDisplayManager;
-    [SerializeField] ClothingSelectionManager clothingSelectionManager;
-    [SerializeField] ShoppingSelectionManager shoppingSelectionManager;
+    [SerializeField] DisplayPanelManager displayPanelManager;
+    [SerializeField] InventoryPanelManager inventoryPanelManager;
+    [SerializeField] ShoppingPanelManager shoppingPanelManager;
+    [SerializeField] GameObject inventoryHUD;
+    [SerializeField] GameObject moneyHUD;
 
-    public ClothingDisplayManager ClothingDisplayManager { get { return clothingDisplayManager; } }
-    public ClothingSelectionManager ClothingSelectionManager { get { return clothingSelectionManager; } }
-    public ShoppingSelectionManager ShoppingSelectionManager { get { return shoppingSelectionManager; } }
+    public DisplayPanelManager DisplayPanelManager { get { return displayPanelManager; } }
+    public InventoryPanelManager InventoryPanelManager { get { return inventoryPanelManager; } }
+    public ShoppingPanelManager ShoppingPanelManager { get { return shoppingPanelManager; } }
+    public GameObject InventoryHUD { get { return inventoryHUD; } }
+    public GameObject MoneyHUD { get { return moneyHUD; } }
 
-    private readonly List<GameObject> panels = new List<GameObject>();
+    private readonly List<GameObject> UIElements = new List<GameObject>();
 
-    private GameManager gameManager;
+    public bool InventoryOpen { get; private set; } = false;
+    public bool ShoppingOpen { get; private set; } = false;
 
-    // Start is called before the first frame update
+    public event Action onInventoryCall;
+    public event Action onShoppingCall;
+
     void Awake()
     {
-        CreatePanelsList();
-        DeactivatePanels();
+        CreateUIElementsList();
+
+        ManagePanels(InventoryOpen);
     }
 
-    private void CreatePanelsList()
+    private void CreateUIElementsList()
     {
         foreach (Transform child in transform)
         {
-            panels.Add(child.gameObject);
-        }
-    }
-
-    private void DeactivatePanels()
-    {
-        foreach (GameObject panel in panels)
-        {
-            panel.SetActive(false);
+            UIElements.Add(child.gameObject);
         }
     }
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
-        gameManager.onInventoryCall += ManageInventoryPanels;
-        gameManager.onShoppingCall += ManageShoppingPanels;
-
+        ClothingSelectionManagerSetup();
+        ShoppingSelectionManagerSetup();
         ClothingDisplaySetup();
     }
 
-    private void ManageInventoryPanels()
+    private void ClothingSelectionManagerSetup()
     {
-        background.gameObject.SetActive(gameManager.InventoryOpen);
-        ClothingSelectionManager.gameObject.SetActive(gameManager.InventoryOpen);
-        ClothingDisplayManager.gameObject.SetActive(gameManager.InventoryOpen);
+        InventoryPanelManager.Setup(this);
     }
 
-    private void ManageShoppingPanels()
+    private void ShoppingSelectionManagerSetup()
     {
-        background.gameObject.SetActive(gameManager.ShoppingOpen);
-        ShoppingSelectionManager.gameObject.SetActive(gameManager.ShoppingOpen);
-        ClothingDisplayManager.gameObject.SetActive(gameManager.ShoppingOpen);
+        ShoppingPanelManager.Setup(this);
     }
 
     private void ClothingDisplaySetup()
     {
-        ClothingDisplayManager.Setup(this);
+        DisplayPanelManager.Setup(this);
     }
 
-    private void OnDisable()
+    public void OnInventoryCall()
     {
-        gameManager.onInventoryCall -= ManageInventoryPanels;
-        gameManager.onShoppingCall -= ManageShoppingPanels;
+        if (onInventoryCall == null) return;
+
+        InventoryOpen = !InventoryOpen;
+        ManagePanels(InventoryOpen);
+        onInventoryCall();
+    }
+
+    public void OnShoppingCall()
+    {
+        if (onShoppingCall == null) return;
+
+        ShoppingOpen = !ShoppingOpen;
+        ManagePanels(ShoppingOpen);
+        onShoppingCall();
+    }
+
+    private void ManagePanels(bool activation)
+    {
+        background.gameObject.SetActive(activation);
+        InventoryPanelManager.gameObject.SetActive(InventoryOpen);
+        DisplayPanelManager.gameObject.SetActive(activation);
+        ShoppingPanelManager.gameObject.SetActive(ShoppingOpen);
+        inventoryHUD.SetActive(!activation);
+        moneyHUD.SetActive(!activation);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && !InventoryOpen)
+            OnShoppingCall();
     }
 }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ClothingSO;
 
-public class ClothingDisplayManager : MonoBehaviour
+public class DisplayPanelManager : MonoBehaviour
 {
     [SerializeField] Image head;
     [SerializeField] Image body;
@@ -14,8 +14,8 @@ public class ClothingDisplayManager : MonoBehaviour
     public void Setup(MainCanvasManager mainCanvasManager)
     {
         this.mainCanvasManager = mainCanvasManager;
-        mainCanvasManager.ClothingSelectionManager.onDisplayNewClothing += UpdateClothing;
-        mainCanvasManager.ShoppingSelectionManager.onDisplayNewClothing += UpdateClothing;
+        mainCanvasManager.InventoryPanelManager.onDisplayNewClothing += UpdateClothing;
+        mainCanvasManager.ShoppingPanelManager.onDisplayNewClothing += UpdateClothing;
     }
 
     private void UpdateClothing(ClothingSO newClothing)
@@ -34,9 +34,9 @@ public class ClothingDisplayManager : MonoBehaviour
         }     
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
-        mainCanvasManager.ClothingSelectionManager.onDisplayNewClothing -= UpdateClothing;
-        mainCanvasManager.ShoppingSelectionManager.onDisplayNewClothing -= UpdateClothing;
+        mainCanvasManager.InventoryPanelManager.onDisplayNewClothing -= UpdateClothing;
+        mainCanvasManager.ShoppingPanelManager.onDisplayNewClothing -= UpdateClothing;
     }
 }

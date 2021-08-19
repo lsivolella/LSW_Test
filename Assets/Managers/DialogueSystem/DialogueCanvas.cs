@@ -6,7 +6,6 @@ public class DialogueCanvas : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI headerText;
     [SerializeField] TextMeshProUGUI bodyText;
-    [SerializeField] TextMeshProUGUI nextText;
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject shopButton;
     [SerializeField] GameObject exitButton;
@@ -26,8 +25,6 @@ public class DialogueCanvas : MonoBehaviour
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-        
-        defaultNextText = nextText.text;
     }
 
     private void Start()
@@ -57,22 +54,15 @@ public class DialogueCanvas : MonoBehaviour
         gameObject.SetActive(true);
         headerText.text = "";
         bodyText.text = "";
-        nextText.text = "";
         Animator.Play("open");
         float animationDelay = Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         dialogueController.BeginDialogue(this, dialogue[0], animationDelay);
-    }
-
-    private void ControlOpening()
-    {
-        nextText.text = defaultNextText;
     }
 
     public void CloseDialogueCanvas()
     {
         headerText.text = "";
         bodyText.text = "";
-        nextText.text = "";
         Animator.Play("close");
         Invoke(nameof(ControlClosing), Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
     }
@@ -106,7 +96,7 @@ public class DialogueCanvas : MonoBehaviour
 
     public void ActionButton()
     {
-        gameManager.OnShoppingCall();
+        gameManager.MainCanvasManager.OnShoppingCall();
     }
 
     public void CloseDialogue()

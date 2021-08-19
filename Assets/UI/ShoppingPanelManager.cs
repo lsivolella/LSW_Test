@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ClothingSO;
 
-public class ShoppingSelectionManager : ClothingSelectionManager
+public class ShoppingPanelManager : InventoryPanelManager
 {
     [SerializeField] Button buyShirtButton;
     [SerializeField] Button sellShirtButton;
@@ -20,16 +20,17 @@ public class ShoppingSelectionManager : ClothingSelectionManager
     private TextMeshProUGUI buyPantsButtonText;
     private TextMeshProUGUI sellPantsButtonText;
     private TextMeshProUGUI buyShoesButtonText;
-    private TextMeshProUGUI sellShoestButtonText;
+    private TextMeshProUGUI sellShoesButtonText;
 
     private readonly StringBuilder sb = new StringBuilder();
 
-    public override void Setup()
+    public override void Setup(MainCanvasManager mainCanvasManager)
     {
         gameManager = GameManager.Instance;
-        gameManager.onShoppingCall += GetCurrentClothing;
         player = gameManager.Player;
         clothesSeller = gameManager.ClothesSeller;
+        this.mainCanvasManager = mainCanvasManager;
+        mainCanvasManager.onShoppingCall += GetCurrentClothing;
         GetButtonsComponents();
     }
 
@@ -47,6 +48,10 @@ public class ShoppingSelectionManager : ClothingSelectionManager
     {
         buyShirtButtonText = buyShirtButton.GetComponentInChildren<TextMeshProUGUI>();
         sellShirtButtonText = sellShirtButton.GetComponentInChildren<TextMeshProUGUI>();
+        buyPantsButtonText = buyPantsButton.GetComponentInChildren<TextMeshProUGUI>();
+        sellPantsButtonText = sellPantsButton.GetComponentInChildren<TextMeshProUGUI>();
+        buyShoesButtonText = buyShoesButton.GetComponentInChildren<TextMeshProUGUI>();
+        sellShoesButtonText = sellShoesButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     protected override void UpdateCurrentShirt(ClothingSO shirt)
@@ -58,11 +63,13 @@ public class ShoppingSelectionManager : ClothingSelectionManager
     protected override void UpdateCurrentPants(ClothingSO pants)
     {
         base.UpdateCurrentPants(pants);
+        ButtonSetup(currentPants);
     }
 
     protected override void UpdateCurrentShoes(ClothingSO shoes)
     {
         base.UpdateCurrentShoes(shoes);
+        ButtonSetup(currentShoes);
     }
 
     private void ButtonSetup(ClothingSO currentClothing)
@@ -101,7 +108,7 @@ public class ShoppingSelectionManager : ClothingSelectionManager
                 sb.Append("Sell $");
                 sb.Append(currentClothing.SellingPrice);
                 sellShoesButton.interactable = player.Inventory.HasItem(currentClothing);
-                sellShoestButtonText.text = sb.ToString();
+                sellShoesButtonText.text = sb.ToString();
                 break;
         }
     }
@@ -159,5 +166,45 @@ public class ShoppingSelectionManager : ClothingSelectionManager
         player.Wallet.AddToWallet(currentShirt.SellingPrice);
         player.Inventory.RemoveItem(currentShirt);
         ButtonSetup(currentShirt);
+    }
+
+    public void BuyPants()
+    {
+        if (!player.Wallet.RemoveFromWallet(currentPants.BuyingPrice)) return;
+
+        player.Inventory.AddItem(currentPants);
+        ButtonSetup(currentPants);
+    }
+
+    public void SellPants()
+    {
+        player.Wallet.AddToWallet(currentPants.SellingPrice);
+        player.Inventory.RemoveItem(currentPants);
+        ButtonSetup(currentPants);
+    }
+
+    public void BuyShoes()
+    {
+        if (!player.Wallet.RemoveFromWallet(currentShoes.BuyingPrice)) return;
+
+        player.Inventory.AddItem(currentShoes);
+        ButtonSetup(currentShoes);
+    }
+
+    public void SellShoes()
+    {
+        player.Wallet.AddToWallet(currentShoes.SellingPrice);
+        player.Inventory.RemoveItem(currentShoes);
+        ButtonSetup(currentShoes);
+    }
+
+    protected override void OnDestroy()
+    {
+        mainCanvasManager.onShoppingCall -= GetCurrentClothing;
+    }
+
+    public override void ExitPanel()
+    {
+        mainCanvasManager.OnShoppingCall();
     }
 }

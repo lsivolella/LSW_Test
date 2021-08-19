@@ -39,7 +39,19 @@ public class ClothingManager : MonoBehaviour
     private void SubscribeToEvent()
     {
         gameManager = GameManager.Instance;
-        gameManager.onShoppingCall += CheckForNaked;
+        gameManager.MainCanvasManager.onShoppingCall += CheckForNaked;
+    }
+
+    private void GetClothingSetup()
+    {
+        if (player.LastDirection == Vector2.up)
+            ClothingBackSetup();
+        else if (player.LastDirection == Vector2.down)
+            ClothingFrontSetup();
+        else if (player.LastDirection == Vector2.right)
+            ClothingRightSetup();
+        else if (player.LastDirection == Vector2.left)
+            ClothingLeftSetup();
     }
 
     public void ClothingFrontSetup()
@@ -80,12 +92,12 @@ public class ClothingManager : MonoBehaviour
         currentPants = newPants;
         currentShoes = newShoes;
 
-        ClothingFrontSetup();
+        GetClothingSetup();
     }
 
     public void CheckForNaked()
     {
-        if (gameManager.ShoppingOpen) return;
+        if (gameManager.MainCanvasManager.ShoppingOpen) return;
 
         if (!player.Inventory.HasItem(currentShirt))
             currentShirt = player.Inventory.Container.Find(x => (x.ItemType == currentShirt.ItemType)
@@ -97,11 +109,12 @@ public class ClothingManager : MonoBehaviour
             currentShoes = player.Inventory.Container.Find(x => (x.ItemType == currentShoes.ItemType)
             && (x.DisplayName == "None"));
 
-        ClothingFrontSetup();
+        GetClothingSetup();
+
     }
 
     private void OnApplicationQuit()
     {
-        gameManager.onShoppingCall -= CheckForNaked;
+        gameManager.MainCanvasManager.onShoppingCall -= CheckForNaked;
     }
 }
