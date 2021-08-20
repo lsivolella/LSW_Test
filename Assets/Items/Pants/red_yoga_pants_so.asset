@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8bb280d6f4fd747816341ffd3c0e6b, type: 3}
+  m_Name: red_yoga_pants_so
+  m_EditorClassIdentifier: 
+  displayName: Red Yoga Pants
+  frontSprite: {fileID: 8849278833575606989, guid: d482def3f0a91b946a28236e5115d092, type: 3}
+  sideSprite: {fileID: -5999216481297778843, guid: 4ea4575ffba848746aafa99c5639df1a, type: 3}
+  backSprite: {fileID: 8876984928139673887, guid: a72c9505fe1529a46a3df23660c61d31, type: 3}
+  itemType: 1
+  buyingPrice: 25
+  sellingPrice: 7
