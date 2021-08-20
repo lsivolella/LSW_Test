@@ -3,6 +3,10 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// Controls dialogues operations in coordination with DialogueController. Responsible for operating
+/// the dialogue canvas and also providing DialogueController with content to print.
+/// </summary>
 public class DialogueCanvas : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI headerText;
@@ -20,21 +24,23 @@ public class DialogueCanvas : MonoBehaviour
 
     private GameManager gameManager;
     private DialogueController dialogueController;
+    private SoundManager soundManager;
 
-    public bool DialogueActive { get; private set; }
+    public bool DialogueActive { get; private set; } = false;
 
     public event Action<int> onDialogueEnd; 
 
     private void Awake()
     {
-        Animator = GetComponent<Animator>();
+        GetReferences();
     }
 
-    private void Start()
+    private void GetReferences()
     {
+        Animator = GetComponent<Animator>();
+        soundManager = SoundManager.Instance;
         gameManager = GameManager.Instance;
         dialogueController = gameManager.DialogueController;
-        DialogueActive = false;
     }
 
     public void CanvasSetup()
@@ -141,14 +147,19 @@ public class DialogueCanvas : MonoBehaviour
 
     public void ActionButton()
     {
-        gameManager.MainCanvasManager.OnShoppingCall();
         CloseDialogue();
+        gameManager.MainCanvasManager.OnShoppingCall();
     }
 
     public void CloseDialogue()
     {
+        CloseDialogueCanvas();
         DialogueActive = false;
         dialogueController.EndDialogue();
-        CloseDialogueCanvas();
+    }
+
+    public void PlaySoundClip()
+    {
+        soundManager.PlayButtonsSoundEffect();
     }
 }

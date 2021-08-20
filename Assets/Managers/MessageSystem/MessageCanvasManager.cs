@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
+/// <summary>
+/// Displays simple messages to the player. It is a fusion of DialogueCanvas and DialogueController 
+/// classes, but it only takes simple messages.
+/// NOTE: improve on MessageCanvasManager to replace DialogueCanvas and DialogueController
+/// </summary>
 public class MessageCanvasManager : MonoBehaviour
 {
     [SerializeField] float letterPrintingDeley = 0.02f;
@@ -17,13 +22,19 @@ public class MessageCanvasManager : MonoBehaviour
     private readonly Queue<string> sentences = new Queue<string>();
     private readonly StringBuilder stringBuilder = new StringBuilder();
 
+    public bool MessageActive { get; private set; } = false;
+
+    private SoundManager soundManager;
+
     private void Awake()
     {
         Animator = GetComponent<Animator>();
+        soundManager = SoundManager.Instance;
     }
 
     public void BeginMessage(string[] messages)
     {
+        MessageActive = true;
         CanvasInitialSetup();
         foreach (string message in messages)
             sentences.Enqueue(message);
@@ -82,6 +93,7 @@ public class MessageCanvasManager : MonoBehaviour
 
     public void FinishMessage()
     {
+        MessageActive = false;
         ClearBodyText();
         stringBuilder.Clear();
         sentences.Clear();
@@ -128,5 +140,10 @@ public class MessageCanvasManager : MonoBehaviour
     public void DisableExitButton()
     {
         exitButton.SetActive(false);
+    }
+
+    public void PlaySoundClip()
+    {
+        soundManager.PlayButtonsSoundEffect();
     }
 }
