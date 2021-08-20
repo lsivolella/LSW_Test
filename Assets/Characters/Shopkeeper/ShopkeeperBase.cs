@@ -1,7 +1,10 @@
 using UnityEngine;
 using static ClothingSO;
 
-public class ShopkeeperBase : CharacterBase
+/// <summary>
+/// Controls shopkeeper behaviour and interaction with player
+/// </summary>
+public class ShopkeeperBase : MonoBehaviour
 {
     // Serialized Variables
     [SerializeField] InventorySO inventory;
@@ -11,12 +14,9 @@ public class ShopkeeperBase : CharacterBase
     public DialogueCanvas DialogueCanvas { get; private set; }
     public PopupManager PopupManager { get; private set; }
 
-    // Cached States
-    private IdleNpcState idleNpcState;
-
     private PlayerBase player;
 
-    protected override void OnAwake()
+    private void Awake()
     {
         DialogueCanvas = GetComponentInChildren<DialogueCanvas>();
         DialogueCanvas.onDialogueEnd += GiftPlayer;
@@ -24,14 +24,8 @@ public class ShopkeeperBase : CharacterBase
         PopupManager = GetComponentInChildren<PopupManager>();
     }
 
-    protected override void SetCharacterStates()
+    private void Start()
     {
-        idleNpcState = new IdleNpcState(this);
-    }
-
-    protected override void OnStart()
-    {
-        TransitionToState(idleNpcState);
         DialogueCanvas.HideCanvas();
     }
 
