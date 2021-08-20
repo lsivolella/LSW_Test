@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
     public ShopkeeperBase Shopkeeper { get; private set; }
     public bool GamePaused { get; private set; } = false;
 
+    private DialogueCanvas tutorialCanvas;
+    private bool showTutotial = true;
+
     public void Awake()
     {
         SingletonSetup();
         FindObjects();
+        GetComponents();
     }
 
     private void SingletonSetup()
@@ -36,6 +40,11 @@ public class GameManager : MonoBehaviour
         DialogueController = FindObjectOfType<DialogueController>();
         Player = FindObjectOfType<PlayerBase>();
         Shopkeeper = FindObjectOfType<ShopkeeperBase>();
+    }
+
+    private void GetComponents()
+    {
+        tutorialCanvas = GetComponentInChildren<DialogueCanvas>();
     }
 
     private void Start()
@@ -60,5 +69,17 @@ public class GameManager : MonoBehaviour
         MainCanvasManager.onIntroCall += PauseGame;
         MainCanvasManager.onInventoryCall -= PauseGame;
         MainCanvasManager.onShoppingCall -= PauseGame;
+    }
+
+    private void Update()
+    {
+        if (MainCanvasManager.IntroScreenManager.gameObject.activeInHierarchy) return;
+
+        if (!showTutotial) return;
+
+        showTutotial = false;
+
+        Player.BeginDialogue(tutorialCanvas);
+        tutorialCanvas.CanvasSetup();
     }
 }

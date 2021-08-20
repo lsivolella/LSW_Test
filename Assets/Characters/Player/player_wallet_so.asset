@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4bcba72a64a6b4d82f78d0bf20c011, type: 3}
   m_Name: player_wallet_so
   m_EditorClassIdentifier: 
-  balance: 1000
+  balance: 6

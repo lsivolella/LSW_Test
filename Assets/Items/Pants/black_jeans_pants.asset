@@ -18,4 +18,4 @@ MonoBehaviour:
   backSprite: {fileID: 2715069424965407586, guid: a72c9505fe1529a46a3df23660c61d31, type: 3}
   itemType: 1
   buyingPrice: 39
-  sellingPrice: 5
+  sellingPrice: 11

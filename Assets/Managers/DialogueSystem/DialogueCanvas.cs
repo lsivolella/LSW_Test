@@ -1,11 +1,10 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using System;
 
 /// <summary>
-/// Controls dialogues operations in coordination with DialogueController. Responsible for operating
-/// the dialogue canvas and also providing DialogueController with content to print.
+/// Controls dialogues operations in coordination with DialogueController for the shopkeeper.
+/// Responsible for operating the dialogue canvas and also providing DialogueController with content to print.
 /// </summary>
 public class DialogueCanvas : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class DialogueCanvas : MonoBehaviour
     [SerializeField] GameObject shopButton;
     [SerializeField] GameObject exitButton;
     [SerializeField] DialogueSO[] dialogue;
+    [SerializeField] bool enableShopButton;
 
     public TextMeshProUGUI HeaderText { get { return headerText; } }
     public TextMeshProUGUI BodyText { get { return bodyText; } }

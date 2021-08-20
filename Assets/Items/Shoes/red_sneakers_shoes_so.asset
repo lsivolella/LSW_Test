@@ -17,5 +17,5 @@ MonoBehaviour:
   sideSprite: {fileID: 2925646798013254665, guid: a3fdfc1da8390e14b9d0b7261b72fbc1, type: 3}
   backSprite: {fileID: 5507796237048719137, guid: 78881b3917dcc3f4b8f47553576d7de2, type: 3}
   itemType: 2
-  buyingPrice: 39
+  buyingPrice: 19
   sellingPrice: 5
