@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Display player's current balance
+/// </summary>
 public class MoneyHudManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI moneyText;

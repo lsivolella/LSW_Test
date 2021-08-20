@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Money wallet configuration scriptable object
+/// </summary>
 [CreateAssetMenu (menuName = "Wallet")]
 public class WalletSO : ScriptableObject
 {

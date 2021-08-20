@@ -3,6 +3,9 @@ using UnityEngine;
 using System.Text;
 using System.Collections;
 
+/// <summary>
+/// Responsible for printing the content provided by the DialogueCanvas into the canvas itself;
+/// </summary>
 public class DialogueController : MonoBehaviour
 {
     [SerializeField] float letterPrintingDelay = 0.5f;

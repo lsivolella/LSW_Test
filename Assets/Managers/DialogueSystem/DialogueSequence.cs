@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Dialogue sentence configuration, used as a variable of DialogueSO
+/// </summary>
 [Serializable]
 public class DialogueSequence
 {

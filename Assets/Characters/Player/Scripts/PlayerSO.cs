@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Player configuration Scriptable Object
+/// </summary>
 [CreateAssetMenu(menuName = "Player Configuration")]
 public class PlayerSO : ScriptableObject
 {

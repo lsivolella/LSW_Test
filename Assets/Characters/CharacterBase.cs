@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// CharacterBase is the base of complex character behaviour. It has a set of methods that
+/// handle state transition, as well as provides MonoBehaviour methods (Start, Update, Collision, etc)
+/// to CharacterBaseState, which is not a MonoBehaviour object.
+/// </summary>
 public abstract class CharacterBase : MonoBehaviour
 {
     public BaseCharacterState CurrentState { get; private set; }

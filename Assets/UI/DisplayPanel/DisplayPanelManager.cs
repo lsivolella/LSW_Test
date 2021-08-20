@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ClothingSO;
 
+/// <summary>
+/// Controls visualization of player avatar. Works with both the shopping and the inventory panels
+/// </summary>
 public class DisplayPanelManager : MonoBehaviour
 {
     [SerializeField] Image body;

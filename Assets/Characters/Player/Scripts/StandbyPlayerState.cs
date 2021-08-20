@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// StandbyPlayerState locks player in a immobile state while dialogues and mesages take place
+/// </summary>
 public class StandbyPlayerState : BaseCharacterState
 {
     private PlayerBase player;
@@ -26,13 +29,26 @@ public class StandbyPlayerState : BaseCharacterState
     public override void Update()
     {
         FinishDialogue();
+        FinishMessage();
     }
 
     private void FinishDialogue()
     {
+        if (player.CurrentDialogueCanvas == null) return;
+
         if (player.CurrentDialogueCanvas.DialogueActive) return;
         
         player.CurrentDialogueCanvas = null;
+        player.TransitionToState(player.idleState);
+    }
+
+    private void FinishMessage()
+    {
+        if (player.CurrentMessage == null) return;
+
+        if (player.CurrentMessage.MessageActive) return;
+
+        player.CurrentMessage = null;
         player.TransitionToState(player.idleState);
     }
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using static ClothingSO;
 
+/// <summary>
+/// Controls shopping operations. Allows player to see all clothers available in the shopkeer inventory,
+/// as well as buy and sell clothes
+/// </summary>
 public class ShoppingPanelManager : InventoryPanelManager
 {
     [SerializeField] Button buyShirtButton;

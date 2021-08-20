@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Display a button for accessing the inventory
+/// </summary>
 public class InventoryHudManager : MonoBehaviour
 {
     private MainCanvasManager mainCanvasManager;

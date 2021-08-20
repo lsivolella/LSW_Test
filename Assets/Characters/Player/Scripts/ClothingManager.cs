@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ClothingManager handles player clothing sprites to make sure the sprites match what the player
+/// is currently wearing. It also change the sprite of the clothes to match the direction the player
+/// is facing
+/// </summary>
 public class ClothingManager : MonoBehaviour
 {
     [SerializeField] SpriteRenderer head;

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// A popup sign that appears when player is close enought. Used by NPC and LostChange
+/// </summary>
 public class PopupManager : MonoBehaviour
 {
     private Animator animator;

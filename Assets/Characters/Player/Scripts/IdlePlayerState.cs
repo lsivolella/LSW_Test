@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Play idle animation and make the transition to the walk state
+/// </summary>
 public class IdlePlayerState : BaseCharacterState
 {
     private PlayerBase player;
@@ -25,7 +28,6 @@ public class IdlePlayerState : BaseCharacterState
 
     public override void Update()
     {
-        //player.CastDialogueLinecast();
         GetMovementInputs();
     }
 

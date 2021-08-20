@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Controls intro button
+/// </summary>
 public class IntroScreenManager : MonoBehaviour
 {
     private MainCanvasManager mainCanvasManager;

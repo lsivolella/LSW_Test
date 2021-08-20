@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// BaseCharacterState is the foundation of characters states. It provides a set of pre-defined methods
+/// that handle state activity and state transitions
+/// </summary>
 public abstract class BaseCharacterState
 {
     public virtual bool ForceInterruption => false;

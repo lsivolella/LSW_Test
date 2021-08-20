@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// PlayerBase inherits basic state transition and operation from CharacterBase, as well as operating
+/// more complex activities for the player. It also provides easy access to components often used by
+/// states
+/// </summary>
 public class PlayerBase : CharacterBase
 {
     // Serialized Variables
@@ -19,6 +24,7 @@ public class PlayerBase : CharacterBase
 
     // Reference Properties
     public DialogueCanvas CurrentDialogueCanvas { get; set; }
+    public MessageCanvasManager CurrentMessage { get; set; }
 
     // Components
     public ClothingManager ClothingManager { get; private set; }
@@ -56,6 +62,12 @@ public class PlayerBase : CharacterBase
     public void BeginDialogue(DialogueCanvas currentCanvas)
     {
         CurrentDialogueCanvas = currentCanvas;
+        TransitionToState(standbyState);
+    }
+
+    public void BeginMessage(MessageCanvasManager currentMessage)
+    {
+        CurrentMessage = currentMessage;
         TransitionToState(standbyState);
     }
 }

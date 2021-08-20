@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Dialogue configuration scriptable object. Used with DialogueCanvas and DialogueController
+/// </summary>
 [CreateAssetMenu (menuName = "New Dialogue")]
 public class DialogueSO : ScriptableObject
 {

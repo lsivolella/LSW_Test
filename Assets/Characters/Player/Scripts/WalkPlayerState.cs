@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Play player walk animation and execute movement
+/// </summary>
 public class WalkPlayerState : BaseCharacterState
 {
     private PlayerBase player;
@@ -15,7 +18,6 @@ public class WalkPlayerState : BaseCharacterState
     {
         GetMovementInputs();
         PlayAnimator();
-        //  player.CastDialogueLinecast();
     }
 
     private void GetMovementInputs()

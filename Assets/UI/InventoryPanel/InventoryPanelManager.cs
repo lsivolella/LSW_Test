@@ -3,6 +3,10 @@ using TMPro;
 using UnityEngine;
 using static ClothingSO;
 
+/// <summary>
+/// Controls inventory operations. Allows player to see all clothers available in his inventory,
+/// as well as dress the desired outfit
+/// </summary>
 public class InventoryPanelManager : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI currentShirtText;

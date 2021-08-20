@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+/// <summary>
+/// Clothing assets configuration scriptable object
+/// </summary>
 [CreateAssetMenu (menuName ="New Clothing")]
 public class ClothingSO : ScriptableObject
 {

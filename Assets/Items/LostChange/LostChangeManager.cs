@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// Money that the player can collect when close enought.
+/// </summary>
 public class LostChangeManager : MonoBehaviour
 {
     [SerializeField] int minimumReward = 1;
@@ -66,6 +67,7 @@ public class LostChangeManager : MonoBehaviour
         if (player == null)
             player = popupManager.Player;
 
+        player.BeginMessage(messageCanvas);
         popupManager.PlayFadeAnimation();
         popupManager.DeactivatePopup();
         respawnTimer.Start();

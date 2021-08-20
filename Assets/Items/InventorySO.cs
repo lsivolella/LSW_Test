@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Inventory configuration scriptable object
+/// </summary>
 [CreateAssetMenu (menuName = "Inventory List")]
 public class InventorySO : ScriptableObject
 {
